@@ -1,0 +1,85 @@
+# HELP.md
+# .gradle
+# build/
+# !gradle/wrapper/gradle-wrapper.jar
+# !**/src/main/**/build/
+# !**/src/test/**/build/
+
+# ### STS ###
+# .apt_generated
+# .classpath
+# .factorypath
+# .project
+# .settings
+# .springBeans
+# .sts4-cache
+# bin/
+# !**/src/main/**/bin/
+# !**/src/test/**/bin/
+
+# ### IntelliJ IDEA ###
+# .idea
+# *.iws
+# *.iml
+# *.ipr
+# out/
+# !**/src/main/**/out/
+# !**/src/test/**/out/
+
+# ### NetBeans ###
+# /nbproject/private/
+# /nbbuild/
+# /dist/
+# /nbdist/
+# /.nb-gradle/
+
+# ### VS Code ###
+# .vscode/
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+src/main/resources/application.yml
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac ###
+.DS_Store
+
+### Application Properties (보안상 중요) ###
+# 실제 운영 환경 설정 파일은 Git에 올리지 마세요
+# application-prod.yml
+# application-local.yml
+
+/target
+/.idea
+/.vscode
+*.log
+*.class
+.env
