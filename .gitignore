@@ -49,7 +49,6 @@ src/main/resources/application.yml
 .settings
 .springBeans
 .sts4-cache
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -83,3 +82,4 @@ build/
 *.log
 *.class
 .env
+.yml

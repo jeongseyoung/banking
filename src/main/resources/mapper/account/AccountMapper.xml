@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sy.banking.account.mapper.AccountMapper">
+
+    <!-- <select id="" resultType="com.sy.banking.domain.dto.UserDto">
+    </select> -->
+<!-- private long userId;
+    private String accountNumber;
+    private long balance;
+    private String status; //ACTIVE, BLOCKED
+    private LocalDateTime created_at;-->
+    <insert id="insertAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem" useGeneratedKeys="true">
+        INSERT accounts user_id, account_number, balance, status
+        VALUES (#{account.userId}, #{account.accountNumber}, #{account.balance}, #{account.status}, #{account.createAt})
+    </insert>
+
+    <!-- Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber); -->
+     <select id="existingAccount" resultType="com.sy.banking.domain.item.AccountItem">
+        SELECT *
+        FROM INTO accounts 
+        WHERE account_number = #{accountNumber}
+     </select>
+</mapper>
