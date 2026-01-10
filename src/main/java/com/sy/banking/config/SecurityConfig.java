@@ -58,8 +58,10 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/user/**"
-                        ).permitAll()
+                                "/user/**",
+                                //"/account/**",
+                                "/main"
+                        ).permitAll() .requestMatchers("/account/**").authenticated()
                         // 나머지는 인증 필요
                         .anyRequest().authenticated()
                 )

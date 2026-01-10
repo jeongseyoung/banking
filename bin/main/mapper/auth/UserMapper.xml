@@ -31,4 +31,19 @@
         FROM users
         WHERE email = #{email}
      </select>
+     
+     <!-- Optional<UserItem> findByUserDtoEmail(String email); -->
+      <select id="findByUserDtoEmail" resultType="com.sy.banking.domain.dto.UserDto">
+         SELECT *
+         FROM users
+         WHERE email = #{email}
+      </select>
+
+     <!-- UserDto findById(@Param("userId") long userId) -->
+      <select id="findById" resultType="com.sy.banking.domain.dto.UserDto">
+        SELECT * 
+        FROM users
+        WHERE user_id = #{userId}
+      </select>
+
 </mapper>

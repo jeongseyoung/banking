@@ -3,7 +3,6 @@ package com.sy.banking.account.service.impl;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sy.banking.account.mapper.AccountMapper;
@@ -23,7 +22,7 @@ public class AccountServiceImpl implements AccountService{
     private static final Random random = new Random();
 
     @Override
-    public ResponseEntity<AccountItem> createAccount(UserDto userDto) {
+    public AccountItem createAccount(UserDto userDto) {
 
         if (userMapper.findByEmail(userDto.getEmail()).isEmpty()) {
             throw new IllegalArgumentException("존재하지 않는 사용자, 계좌생성 불가능");
@@ -34,7 +33,7 @@ public class AccountServiceImpl implements AccountService{
         AccountItem accountItem = new AccountItem(userDto.getUserId(), accountNumber, 0, "ACTIVE", LocalDateTime.now());
         accountMapper.insertAccountInfo(accountItem);
 
-        return ResponseEntity.ok().body(accountItem);
+        return accountItem;
     }
 
 

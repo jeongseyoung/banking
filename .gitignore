@@ -75,7 +75,9 @@ build/
 # 실제 운영 환경 설정 파일은 Git에 올리지 마세요
 # application-prod.yml
 # application-local.yml
-
+/bin/
+/build/
+/.gradle/
 /target
 /.idea
 /.vscode

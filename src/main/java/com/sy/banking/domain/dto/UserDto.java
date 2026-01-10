@@ -48,4 +48,8 @@ public class UserDto implements UserDetails{
     public String getUsername() {
         return this.name;
     }
+
+    public UserDto(UserDto userDto) {
+        
+    }
 }

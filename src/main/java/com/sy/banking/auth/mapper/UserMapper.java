@@ -21,4 +21,7 @@ public interface UserMapper {
 
     Optional<UserItem> findByEmail(@Param("email") String email);
 
+    Optional<UserDto> findByUserDtoEmail(String email);
+
+    Optional<UserDto> findById(@Param("userId") long userId);
 }
