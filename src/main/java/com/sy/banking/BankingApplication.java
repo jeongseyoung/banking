@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.sy.banking.auth.mapper")
 @MapperScan("com.sy.banking.account.mapper")
+@MapperScan("com.sy.banking.transfer.mapper")
 public class BankingApplication {
 
 	public static void main(String[] args) {

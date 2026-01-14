@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountItem {
 
+    private long accountId;
     private long userId;
     private String accountNumber;
     private long balance;
@@ -20,11 +21,15 @@ public class AccountItem {
     private LocalDateTime createdAt;
     
 
-    // public AccountItem(long userId, String accountNumber, long balance, String status, LocalDateTime createAt) {
-    //     this.userId = userId;
-    //     this.accountNumber = accountNumber;
-    //     this.balance = balance;
-    //     this.status = status;
-    //     this.createdAt = createAt;
-    // }
+     public AccountItem(long userId, String accountNumber, long balance, String status, LocalDateTime createAt) {
+         this.userId = userId;
+         this.accountNumber = accountNumber;
+         this.balance = balance;
+         this.status = status;
+         this.createdAt = createAt;
+     }
+
+     public AccountItem(long accountId, long balance) {
+        this.balance = balance;
+     }
 }

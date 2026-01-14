@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements UserDetails{
+public class UserDto{
     private long userId;
     private String email;
     private String password;
@@ -29,27 +29,4 @@ public class UserDto implements UserDetails{
     private Role user_Role;
     private LocalDateTime created_at;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user_Role.name()));
-    }
-
-    // enum Role{
-    //     ROLE_USER,
-    //     ROLE_ADMIN;
-    // }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.name;
-    }
-
-    public UserDto(UserDto userDto) {
-        
-    }
 }

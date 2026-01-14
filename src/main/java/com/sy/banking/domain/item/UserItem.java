@@ -36,7 +36,7 @@ public class UserItem implements OAuth2User, UserDetails {
 
     //생성자1
     public UserItem(UserDto user) {
-        //this.userId = user.getUserId();
+        this.userId = user.getUserId();
         this.email = user.getEmail();
         this.name = user.getName();
         this.user_Role = user.getUser_Role();
@@ -57,6 +57,9 @@ public class UserItem implements OAuth2User, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+         if (user_Role == null) {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
         return List.of(new SimpleGrantedAuthority(user_Role.name()));
     }
 

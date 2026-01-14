@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.sy.banking.domain.dto.UserDto;
 import com.sy.banking.domain.item.UserItem;
+import com.sy.banking.enumbox.Role;
 
 
 @Mapper
@@ -23,5 +24,7 @@ public interface UserMapper {
 
     Optional<UserDto> findByUserDtoEmail(String email);
 
-    Optional<UserDto> findById(@Param("userId") long userId);
+    Optional<UserItem> findById(@Param("userId") long userId);
+
+    void updateUserRole(@Param("email") String email, @Param("role") Role role);
 }

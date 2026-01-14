@@ -10,9 +10,12 @@ import com.sy.banking.account.service.AccountService;
 import com.sy.banking.auth.mapper.UserMapper;
 import com.sy.banking.domain.dto.UserDto;
 import com.sy.banking.domain.item.AccountItem;
+import com.sy.banking.domain.item.UserItem;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService{
@@ -22,15 +25,15 @@ public class AccountServiceImpl implements AccountService{
     private static final Random random = new Random();
 
     @Override
-    public AccountItem createAccount(UserDto userDto) {
+    public AccountItem createAccount(UserItem userItem) {
 
-        if (userMapper.findByEmail(userDto.getEmail()).isEmpty()) {
+        if (userMapper.findByEmail(userItem.getEmail()).isEmpty()) {
             throw new IllegalArgumentException("존재하지 않는 사용자, 계좌생성 불가능");
         };
 
         String accountNumber = generateAccountNumber();
-        
-        AccountItem accountItem = new AccountItem(userDto.getUserId(), accountNumber, 0, "ACTIVE", LocalDateTime.now());
+        log.info("userId {} {} {} {}", userItem.getUserId(), userItem.getEmail(), userItem.getName(), userItem.getUsername());
+        AccountItem accountItem = new AccountItem(userItem.getUserId(), accountNumber, 0, "ACTIVE", LocalDateTime.now());
         accountMapper.insertAccountInfo(accountItem);
 
         return accountItem;

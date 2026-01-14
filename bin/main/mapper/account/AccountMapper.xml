@@ -14,14 +14,14 @@
     private String status; //ACTIVE, BLOCKED
     private LocalDateTime created_at;-->
     <insert id="insertAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem" useGeneratedKeys="true">
-        INSERT accounts user_id, account_number, balance, status
-        VALUES (#{account.userId}, #{account.accountNumber}, #{account.balance}, #{account.status}, #{account.createAt})
+        INSERT INTO accounts (user_id, account_number, balance, status, created_at)
+        VALUES (#{account.userId}, #{account.accountNumber}, #{account.balance}, #{account.status}, #{account.createdAt})
     </insert>
 
     <!-- Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber); -->
      <select id="existingAccount" resultType="com.sy.banking.domain.item.AccountItem">
         SELECT *
-        FROM INTO accounts 
+        FROM accounts 
         WHERE account_number = #{accountNumber}
      </select>
 </mapper>

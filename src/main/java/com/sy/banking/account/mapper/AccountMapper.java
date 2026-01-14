@@ -9,10 +9,13 @@ import com.sy.banking.domain.item.AccountItem;
 
 @Mapper
 public interface AccountMapper {
-
-    //계좌중복,존재 여부 확인
-    Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber);
-
+    
     //account정보 저장
     void insertAccountInfo(@Param("account") AccountItem accountItem);
+
+    //계좌 업데이트
+    void updateAccountInfo(@Param("account") AccountItem accountItem);
+
+    //계좌중복,존재 여부 확인, select
+    Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber);
 }

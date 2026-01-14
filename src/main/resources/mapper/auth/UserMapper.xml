@@ -25,7 +25,19 @@
         SELECT COUNT(*) FROM users WHERE email = #{email}
     </select>
 
-    <!-- Optional<UserItem> findByEmail(@Param("email") String email); -->
+
+    <!-- <resultMap id="UserMap" type="com.sy.banking.domain.item.UserItem">
+        <id column="user_id" property="userId"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="user_Role"
+                property="user_Role"
+                javaType="com.sy.banking.enumbox.Role"/>
+        <result column="created_at" property="created_at"/>
+    </resultMap> -->
+
+    <!-- Optional<UserItem> findByEmail(@Param("email") String email); --> <!-- resultMap="UserMap" -->
      <select id="findByEmail" resultType="com.sy.banking.domain.item.UserItem">
         SELECT *
         FROM users
@@ -40,10 +52,15 @@
       </select>
 
      <!-- UserDto findById(@Param("userId") long userId) -->
-      <select id="findById" resultType="com.sy.banking.domain.dto.UserDto">
+      <select id="findById" resultType="com.sy.banking.domain.item.UserItem">
         SELECT * 
         FROM users
         WHERE user_id = #{userId}
       </select>
-
+      
+    <update id="updateUserRole">
+        UPDATE users
+        SET user_Role = #{role}
+        WHERE email = #{email}
+    </update>
 </mapper>
