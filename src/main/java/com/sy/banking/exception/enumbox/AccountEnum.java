@@ -1,11 +1,13 @@
 package com.sy.banking.exception.enumbox;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public enum AccountEnum {
-    //DUPLICATED_ACCOUNT_NUMBER(HttpStatus.CONFLICT, "계좌중복");
+    DUPLICATED_ACCOUNT_NUMBER("계좌중복"),
+    INACTIVE_ACCOUNT("비활성 계좌");
 
-    //private final HttpStatusCode httpStatus;
-    //private final String message;
+    private final String message;
 }

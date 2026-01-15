@@ -3,9 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-<mapper namespace="com.sy.banking.transfer.mapper">
-  <update id="updateAccountInfo">
-    UPDATE 
-  </update>
+<!-- private long accountId;
+    private long counterpartyAccountId;
+    private TransferType transferType;
+    private long amount;
+    private long balanceAfter;
+    private String memo;
+    private LocalDateTime t; -->
+<mapper namespace="com.sy.banking.transfer.mapper.TransferMapper">
+  <!-- void saveTransaction(TransactionReq transactionReq); -->
+  <insert id="saveTransaction" parameterType="com.sy.banking.domain.item.req.TransactionReq">
+    INSERT INTO transactions (account_id, type, counterparty_account_id, amount, balance_after, memo, created_at)
+    VALUES (#{accountId},
+            #{transferType}, 
+            #{counterpartyAccountId}, 
+            #{amount}, 
+            #{balanceAfter}, 
+            #{memo}, 
+            #{t})
+  </insert>
+    
 </mapper>

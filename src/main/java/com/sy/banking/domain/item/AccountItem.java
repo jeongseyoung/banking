@@ -30,6 +30,7 @@ public class AccountItem {
      }
 
      public AccountItem(long accountId, long balance) {
+        this.accountId = accountId;
         this.balance = balance;
      }
 }

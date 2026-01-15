@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.sy.banking.exception.AccountException;
 import com.sy.banking.exception.TransferException;
 import com.sy.banking.exception.UserException;
+import com.sy.banking.exception.response.AccountExceptionRes;
 import com.sy.banking.exception.response.ErrorExceptionResponse;
 import com.sy.banking.exception.response.TransferExceptionRes;
 
@@ -38,13 +40,23 @@ public class GlobalExceptionManager {
 
     }
 
-    //transferexception
-    @ExceptionHandler(TransferException.class)
-    public ResponseEntity<TransferExceptionRes> TransferExceptionHandler(TransferException e, HttpServletRequest req) { 
+    //accountexception
+    @ExceptionHandler(AccountException.class)
+    public ResponseEntity<TransferExceptionRes> AccountExceptionHandler(AccountException e, HttpServletRequest req) { 
 
         String requestId = UUID.randomUUID().toString();
         
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(new TransferExceptionRes(e.getTransferEnum().getMessage(), LocalDateTime.now(), "/transfer/**", requestId));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new TransferExceptionRes(e.getAccountEnum().getMessage(), LocalDateTime.now(), "/transfer/**", requestId));
+
+    }
+
+    //transferexception
+    @ExceptionHandler(TransferException.class)
+    public ResponseEntity<AccountExceptionRes> TransferExceptionHandler(TransferException e, HttpServletRequest req) { 
+
+        String requestId = UUID.randomUUID().toString();
+        
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new AccountExceptionRes(e.getTransferEnum().getMessage(), LocalDateTime.now(), "/account/** or /transfer/**", requestId));
 
     }
 

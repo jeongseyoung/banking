@@ -24,4 +24,10 @@
         FROM accounts 
         WHERE account_number = #{accountNumber}
      </select>
+
+     <!-- //계좌 업데이트
+    void updateAccountInfo(@Param("account") AccountItem accountItem); -->
+    <update id="updateAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem">
+        UPDATE accounts SET balance = #{account.balance} WHERE account_id = #{account.accountId}
+    </update>
 </mapper>
