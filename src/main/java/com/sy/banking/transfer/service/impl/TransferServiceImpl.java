@@ -178,5 +178,10 @@ public class TransferServiceImpl implements TransferService{
         }
 
         return executeTransfer(transactionReqItem.getAccountNumber(), p1_transactionReq, p2_transactionReq);
+    }
+
+    @Override
+    public TransactionRes interest(String accountNumber, TransactionReq transactionReq) {
+        return executeTransfer(accountNumber, transactionReq);
     }    
 }

@@ -30,4 +30,10 @@
     <update id="updateAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem">
         UPDATE accounts SET balance = #{account.balance} WHERE account_id = #{account.accountId}
     </update>
+
+    <!-- active계정 
+    Optional<AccountItem> fidAllActiveAccount() -->
+    <select id="fidAllActiveAccount" resultType="com.sy.banking.domain.item.AccountItem">
+        SELECT * FROM accounts WHERE status = "ACTIVE"
+    </select>
 </mapper>

@@ -3,6 +3,7 @@ package com.sy.banking.domain.item.req;
 import com.sy.banking.enumbox.TransferType;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TransferReqItem {
     private String accountNumber; //내계좌
     private String counterpartyAccountNumber; //상대방계좌

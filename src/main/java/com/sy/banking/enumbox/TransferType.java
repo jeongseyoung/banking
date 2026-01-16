@@ -4,5 +4,6 @@ public enum TransferType {
     DEPOSIT,
     WITHDRAWAL,
     TRANSFER_OUT,
-    TRANSFER_IN
+    TRANSFER_IN,
+    INTEREST;
 }
