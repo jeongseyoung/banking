@@ -22,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.sy.banking.config.jwt.JwtAuthenticationEntryPoint;
 import com.sy.banking.config.jwt.JwtAuthenticationFilter;
-import com.sy.banking.config.oauth.CustomUserService;
+//import com.sy.banking.config.oauth.CustomUserService;
 import com.sy.banking.config.oauth.OAuth2AuthenticationFailureHandler;
 import com.sy.banking.config.oauth.OAuth2AuthenticationSuccessHandler;
 
@@ -41,7 +41,9 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    private final CustomUserService customUserService;
+
+    //private final CustomUserService customUserService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

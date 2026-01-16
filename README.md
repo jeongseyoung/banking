@@ -1,3 +1,49 @@
+banking/
+├── src/
+│   └── main/
+│       ├── java/com/sy/banking/
+│       │   ├── BankingApplication.java                 # 메인 애플리케이션
+│       │   ├── auth/                                   # 인증 관련
+│       │   │   ├── JwtAuthenticationFilter.java
+│       │   │   └── SecurityConfig.java
+│       │   ├── controller/                             # API 컨트롤러
+│       │   │   └── TransferController.java
+│       │   ├── domain/                                 # 도메인 객체
+│       │   │   ├── item/
+│       │   │   │   ├── AccountItem.java
+│       │   │   │   ├── UserItem.java
+│       │   │   │   ├── req/
+│       │   │   │   │   ├── TransferReqItem.java
+│       │   │   │   │   └── WithdrawalReqItem.java
+│       │   │   │   └── res/
+│       │   │   │       └── TransactionRes.java
+│       │   │   └── TransactionReq.java
+│       │   ├── enumbox/                                # Enum들
+│       │   │   ├── TransferType.java
+│       │   │   └── TransferEnum.java
+│       │   ├── exception/                              # 예외 처리
+│       │   │   ├── AccountException.java
+│       │   │   ├── TransferException.java
+│       │   │   └── GlobalExceptionHandler.java
+│       │   ├── mapper/                                 # MyBatis 매퍼
+│       │   │   ├── AccountMapper.java
+│       │   │   └── transfer/
+│       │   │       └── TransferMapper.java
+│       │   └── service/                                # 서비스 계층
+│       │       ├── transfer/
+│       │       │   ├── TransferService.java
+│       │       │   └── impl/
+│       │       │       └── TransferServiceImpl.java  # 핵심 비즈니스 로직
+│       └── resources/
+│           ├── application.yml                         # 설정 파일
+│           ├── mapper/
+│           │   ├── AccountMapper.xml
+│           │   └── transfer/
+│           │       └── TransferMapper.xml             # SQL 매핑
+│           └── static/
+│               └── swagger-ui.html                     # API 문서
+└── README.md                                           # 프로젝트 문서
+
 기술 스택
 Backend: Spring Boot 3.x, MyBatis 3.x, Lombok
 Database: MySQL 8.0 / MariaDB

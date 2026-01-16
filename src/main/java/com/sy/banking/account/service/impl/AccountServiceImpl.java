@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.sy.banking.account.mapper.AccountMapper;
 import com.sy.banking.account.service.AccountService;
 import com.sy.banking.auth.mapper.UserMapper;
-import com.sy.banking.domain.dto.UserDto;
 import com.sy.banking.domain.item.AccountItem;
 import com.sy.banking.domain.item.UserItem;
 

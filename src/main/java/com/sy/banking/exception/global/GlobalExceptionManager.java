@@ -28,7 +28,7 @@ public class GlobalExceptionManager {
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorExceptionResponse> UserExceptionHandler(UserException e) { 
 
-        return ResponseEntity.status(e.getUserEnum().getHttpStatus())
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(new ErrorExceptionResponse(false, e.getMessage(), LocalDateTime.now(), "/user/**"));
 
     }

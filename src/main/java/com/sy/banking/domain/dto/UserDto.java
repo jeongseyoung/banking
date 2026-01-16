@@ -1,13 +1,8 @@
 package com.sy.banking.domain.dto;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.ibatis.type.Alias;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.sy.banking.enumbox.Role;
 
