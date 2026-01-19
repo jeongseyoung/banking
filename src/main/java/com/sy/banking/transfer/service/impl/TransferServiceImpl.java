@@ -126,10 +126,17 @@ public class TransferServiceImpl implements TransferService{
        if(transactionReqItem.getAccountNumber().equals(transactionReqItem.getCounterpartyAccountNumber()))
             throw new TransferException(TransferEnum.SAME_ACCOUNT_TRANSFER);
 
+       String acc1 = transactionReqItem.getAccountNumber();
+       String acc2 = transactionReqItem.getCounterpartyAccountNumber();     
+
+       //데드락 방지용 순서비교
+       String p1 = acc1.compareTo(acc2) < 0 ? acc1 : acc2;
+       String p2 = acc1.compareTo(acc2) < 0 ? acc2 : acc1;
+
        Optional<AccountItem> p1_accountItem = Optional.ofNullable(accountMapper
-        .existingAccount(transactionReqItem.getAccountNumber())).orElseThrow(() ->  new TransferException(TransferEnum.NO_ACCOUNT));       
+        .existingAccount(p1)).orElseThrow(() ->  new TransferException(TransferEnum.NO_ACCOUNT));       
        Optional<AccountItem> p2_accountItem = Optional.ofNullable(accountMapper
-        .existingAccount(transactionReqItem.getCounterpartyAccountNumber())).orElseThrow(() -> new TransferException(TransferEnum.NO_ACCOUNT));
+        .existingAccount(p2)).orElseThrow(() -> new TransferException(TransferEnum.NO_ACCOUNT));
 
        String p1_status = p1_accountItem.get().getStatus();
        String p2_status = p2_accountItem.get().getStatus();

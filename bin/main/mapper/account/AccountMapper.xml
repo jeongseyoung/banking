@@ -23,6 +23,7 @@
         SELECT *
         FROM accounts 
         WHERE account_number = #{accountNumber}
+        FOR UPDATE
      </select>
 
      <!-- //계좌 업데이트
