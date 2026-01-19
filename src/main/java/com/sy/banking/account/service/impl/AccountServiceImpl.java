@@ -1,6 +1,8 @@
 package com.sy.banking.account.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -8,8 +10,12 @@ import org.springframework.stereotype.Service;
 import com.sy.banking.account.mapper.AccountMapper;
 import com.sy.banking.account.service.AccountService;
 import com.sy.banking.auth.mapper.UserMapper;
+import com.sy.banking.domain.item.ASPageItem;
 import com.sy.banking.domain.item.AccountItem;
+import com.sy.banking.domain.item.TransactionListItem;
 import com.sy.banking.domain.item.UserItem;
+import com.sy.banking.domain.paging.PageResponse;
+import com.sy.banking.transfer.mapper.TransferMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +27,7 @@ public class AccountServiceImpl implements AccountService{
 
     private final UserMapper userMapper;
     private final AccountMapper accountMapper;
+    private final TransferMapper transferMapper;
     private static final Random random = new Random();
 
     @Override
@@ -70,5 +77,34 @@ public class AccountServiceImpl implements AccountService{
         } while (accountMapper.existingAccount(accountNumber).isPresent());
 
         return accountNumber;
+    }
+
+    /* private int page;
+    private int size;
+    private int totalPage;
+    private int totalCount;
+    private List<T> list; */ 
+    @Override
+    public PageResponse<TransactionListItem> getMyAccountStatement(ASPageItem asPageItem, UserItem userItem) {
+
+        log.info("getMyAccountStatement impl {}, {}, {}", asPageItem.getPage(), asPageItem.getSize(), userItem.getUserId());
+
+        Optional<AccountItem> accountItem = accountMapper.findAccountIdByUserId(userItem.getUserId());
+        long accountId = accountItem.get().getAccountId();
+        String accountNumber = accountItem.get().getAccountNumber();
+        String status = accountItem.get().getStatus();
+
+        long totalCount = transferMapper.countByAccountId(accountId);
+
+        List<TransactionListItem> list = transferMapper.findListByAccountId(accountId, asPageItem);
+       
+        return PageResponse.page(
+            asPageItem.getPage(),
+            asPageItem.getSize(),
+            totalCount,
+            status,
+            accountNumber,
+            list            
+        );
     }
 }

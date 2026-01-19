@@ -17,9 +17,12 @@ public interface AccountMapper {
     //계좌 업데이트
     void updateAccountInfo(@Param("account") AccountItem accountItem);
 
-    //계좌중복,존재 여부 확인, select
+    //계좌중복, 존재 여부, select
     Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber);
 
     //active계정
     List<AccountItem> fidAllActiveAccount();
+
+    //userId로 accountId찾기
+    Optional<AccountItem> findAccountIdByUserId(long userId);
 }

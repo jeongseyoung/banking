@@ -23,4 +23,33 @@
             #{t})
   </insert>
     
+  <!-- //total count
+    int countByAccountId(long accountId); -->
+  <select id="countByAccountId" resultType="long">
+    SELECT COUNT(*) FROM transactions WHERE account_id = #{accountId}
+  </select>
+
+  <!-- List<TransactionListItem> findListByAccountId(ASPageItem asPageItem) -->
+  <select id="findListByAccountId" parameterType="map" resultType="TransactionListItem">
+    SELECT account_id, type, counterparty_account_id, amount, balance_after, memo, created_at
+    FROM transactions
+    <where>
+      account_id = #{accountId}
+      <if test="page.transferType != null">
+        AND type = ${page.transferType}
+      </if>
+    </where>
+    ORDER BY created_at 
+    <choose>
+      <when test="page.orderByType == 'ASC'">
+        ASC
+      </when>
+      <otherwise>
+        DESC
+      </otherwise>
+    </choose>
+    LIMIT #{page.size}
+    OFFSET #{page.offset}
+  </select> 
+   
 </mapper>

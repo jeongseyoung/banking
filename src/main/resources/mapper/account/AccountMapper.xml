@@ -36,4 +36,9 @@
     <select id="fidAllActiveAccount" resultType="com.sy.banking.domain.item.AccountItem">
         SELECT * FROM accounts WHERE status = "ACTIVE"
     </select>
+    <!-- //userId로 accountId찾기
+    long findAccountIdByUserId(long userId) -->
+    <select id="findAccountIdByUserId" resultType="com.sy.banking.domain.item.AccountItem">
+        SELECT * FROM accounts WHERE user_id = #{userId}
+    </select>
 </mapper>
