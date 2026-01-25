@@ -1,6 +1,7 @@
 package com.sy.banking.config.oauth;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
+//import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sy.banking.config.jwt.JwtTokenProvider;
 
@@ -50,10 +51,27 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String accessToken = jwtTokenProvider.generateAccessToken(authentication);
         String refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
 
-        return UriComponentsBuilder.fromUriString("/main")
-                .queryParam("accessToken", accessToken)
-                .queryParam("refreshToken", refreshToken)
-                .build()
-                .toUriString();
+        Cookie accessCookie = new Cookie("accessToken", accessToken);
+        accessCookie.setHttpOnly(true);
+        accessCookie.setSecure(false); // 로컬은 false, 운영은 true
+        accessCookie.setPath("/"); // 모든 경로에 쿠키 전달
+        accessCookie.setMaxAge(60 * 15); // 15분
+
+        Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+        refreshCookie.setHttpOnly(true);
+        refreshCookie.setSecure(false);
+        refreshCookie.setPath("/");
+        refreshCookie.setMaxAge(60 * 60 * 24 * 7); // 7일
+
+        response.addCookie(accessCookie);
+        response.addCookie(refreshCookie);
+
+        return "http://localhost:3000/main";
+        
+        // return UriComponentsBuilder.fromUriString("http://localhost:3000/main")
+        //         .queryParam("accessToken", accessToken)
+        //         .queryParam("refreshToken", refreshToken)
+        //         .build()
+        //         .toUriString();
     }
 }

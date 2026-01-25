@@ -14,6 +14,7 @@ import com.sy.banking.domain.item.ASPageItem;
 import com.sy.banking.domain.item.AccountItem;
 import com.sy.banking.domain.item.TransactionListItem;
 import com.sy.banking.domain.item.UserItem;
+import com.sy.banking.domain.item.res.AccountItemResponse;
 import com.sy.banking.domain.paging.PageResponse;
 import com.sy.banking.transfer.mapper.TransferMapper;
 
@@ -106,5 +107,13 @@ public class AccountServiceImpl implements AccountService{
             accountNumber,
             list            
         );
+    }
+
+    @Override
+    public AccountItemResponse getMyAccountInfo(long userId) {
+        //Optional<AccountItem> accountItem =  accountMapper.findAccountIdByUserId(userId);
+        List<AccountItem> accounts = accountMapper.findMyAccountsByUserId(userId);
+        //AccountItemResponse accountItemResponse = accountItem.map((item) -> new AccountItemResponse(item.getAccountId(), item.getUserId(),item.getAccountNumber(), item.getBalance(), item.getStatus(), item.getCreatedAt())).orElseThrow();
+        return AccountItemResponse.of(accounts);
     }
 }

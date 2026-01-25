@@ -1,0 +1,132 @@
+/* ========== HISTORY TAB ========== */
+.history-tab {
+padding: 1.5rem;
+}
+.spending-summary {
+display: grid;
+grid-template-columns: 1fr auto 1fr;
+gap: 1rem;
+background: white;
+border: 2px solid #f1f3f5;
+border-radius: 16px;
+padding: 1.5rem;
+margin-bottom: 1.5rem;
+}
+.spending-item {
+text-align: center;
+}
+.spending-label {
+margin: 0 0 0.5rem 0;
+color: #868e96;
+font-size: 0.85rem;
+}
+.spending-amount {
+margin: 0;
+font-size: 1.3rem;
+font-weight: 700;
+}
+.spending-amount.in {
+color: #51cf66;
+}
+.spending-amount.out {
+color: #f03e3e;
+}
+.spending-divider {
+width: 1px;
+background: #dee2e6;
+}
+.history-filters {
+display: flex;
+gap: 0.5rem;
+margin-bottom: 1.5rem;
+}
+.filter-btn {
+padding: 0.6rem 1.2rem;
+border: 1px solid #dee2e6;
+background: white;
+border-radius: 20px;
+cursor: pointer;
+font-size: 0.9rem;
+color: #495057;
+font-weight: 500;
+}
+.filter-btn.active {
+background: #667eea;
+color: white;
+border-color: #667eea;
+}
+.history-list {
+background: white;
+}
+.history-date {
+font-weight: 600;
+color: #495057;
+margin-bottom: 0.75rem;
+margin-top: 1rem;
+font-size: 0.9rem;
+}
+.history-date:first-child {
+margin-top: 0;
+}
+.history-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 0;
+border-bottom: 1px solid #f1f3f5;
+}
+.history-item:last-child {
+border-bottom: none;
+}
+.history-left {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+.history-icon {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+font-size: 0.85rem;
+}
+.history-icon.in {
+background: #d3f9d8;
+color: #2f9e44;
+}
+.history-icon.out {
+background: #ffe3e3;
+color: #c92a2a;
+}
+.history-title {
+margin: 0 0 0.25rem 0;
+font-weight: 600;
+color: #212529;
+}
+.history-time {
+margin: 0;
+font-size: 0.85rem;
+color: #868e96;
+}
+.history-right {
+text-align: right;
+}
+.history-amount {
+margin: 0 0 0.25rem 0;
+font-weight: 700;
+font-size: 1rem;
+}
+.history-amount.out {
+color: #f03e3e;
+}
+.history-amount.in {
+color: #51cf66;
+}
+.history-balance {
+margin: 0;
+font-size: 0.8rem;
+color: #868e96;
+}

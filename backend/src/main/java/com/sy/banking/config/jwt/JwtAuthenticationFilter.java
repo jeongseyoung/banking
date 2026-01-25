@@ -2,6 +2,7 @@ package com.sy.banking.config.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             
     ) throws ServletException, IOException {
         try {
-            String jwt = getJwtFromRequest(request);
-
+            //String jwt = getJwtFromRequest(request);
+            String jwt = resolveToken(request);
+            System.out.println("jwt: " + jwt);
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 String username = jwtTokenProvider.getUsernameFromToken(jwt);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -58,11 +60,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String getJwtFromRequest(HttpServletRequest request) {
+    // private String getJwtFromRequest(HttpServletRequest request) {
+    //     String bearerToken = request.getHeader("Authorization");
+    //     if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+    //         return bearerToken.substring(7);
+    //     }
+    //     return null;
+    // }
+
+    // 쿠키에서 토큰 추출
+    private String resolveToken(HttpServletRequest request) {
+
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
+
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("accessToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+
         return null;
     }
 }

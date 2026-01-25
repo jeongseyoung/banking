@@ -1,7 +1,7 @@
 package com.sy.banking.domain.item;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +29,7 @@ public class UserItem implements OAuth2User, UserDetails {
     private String password;
     private String name;
     private Role user_Role;
-    private Date created_at;
+    private LocalDateTime created_at;
 
     //object -> 구글 로그인 정보 들어감
     private Map<String, Object> attributes;

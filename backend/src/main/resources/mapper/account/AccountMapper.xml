@@ -42,4 +42,10 @@
     <select id="findAccountIdByUserId" resultType="com.sy.banking.domain.item.AccountItem">
         SELECT * FROM accounts WHERE user_id = #{userId}
     </select>
+
+    <!-- //userId로 accounts(list)찾기
+    List<AccountItem> findMyAccountsByUserId(long userId) -->
+    <select id="findMyAccountsByUserId" resultType="com.sy.banking.domain.item.AccountItem">
+        SELECT * FROM accounts WHERE user_id = #{userId}
+    </select>
 </mapper>

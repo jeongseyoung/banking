@@ -23,6 +23,9 @@ public interface AccountMapper {
     //active계정
     List<AccountItem> fidAllActiveAccount();
 
-    //userId로 accountId찾기
+    //userId로 accountId찾기 -- isPrimary 만들어야될듯? 주계좌설정해야됨.
     Optional<AccountItem> findAccountIdByUserId(long userId);
+
+    //userId로 accounts(list)찾기
+    List<AccountItem> findMyAccountsByUserId(long userId);
 }

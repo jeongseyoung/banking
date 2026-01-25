@@ -1,0 +1,201 @@
+/* ========== HOME TAB ========== */
+.home-tab {
+    padding: 1.5rem;
+}
+
+.welcome-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-banner h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.8rem;
+}
+
+.welcome-banner p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.balance-summary {
+    background: white;
+    border: 2px solid #f1f3f5;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.balance-item .balance-label {
+    margin: 0 0 0.5rem 0;
+    color: #868e96;
+    font-size: 0.9rem;
+}
+
+.balance-item .balance-amount {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.action-btn {
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.action-btn.primary {
+    background: #667eea;
+    color: white;
+}
+
+.action-btn.secondary {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+/* 최근 거래 미리보기 */
+.recent-preview {
+    margin-bottom: 1.5rem;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #212529;
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.preview-list {
+    background: white;
+    border: 1px solid #f1f3f5;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.preview-item:last-child {
+    border-bottom: none;
+}
+
+.preview-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.preview-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.preview-title {
+    margin: 0 0 0.2rem 0;
+    font-weight: 600;
+    color: #212529;
+}
+
+.preview-time {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #868e96;
+}
+
+.preview-amount {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.preview-amount.out {
+    color: #f03e3e;
+}
+
+.preview-amount.in {
+    color: #51cf66;
+}
+
+/* 혜택 배너 */
+.benefit-banner {
+    background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+}
+
+.benefit-text {
+    flex: 1;
+}
+
+.benefit-text h4 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1rem;
+    color: #212529;
+}
+
+.benefit-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.benefit-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

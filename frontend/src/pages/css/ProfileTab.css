@@ -1,0 +1,127 @@
+/* ========== PROFILE TAB ========== */
+.profile-tab {
+padding: 1.5rem;
+}
+.profile-header {
+text-align: center;
+padding: 2rem 0;
+border-bottom: 1px solid #f1f3f5;
+margin-bottom: 1.5rem;
+}
+.profile-avatar {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2rem;
+font-weight: 700;
+margin: 0 auto 1rem auto;
+}
+.profile-header h2 {
+margin: 0 0 0.5rem 0;
+font-size: 1.5rem;
+color: #212529;
+}
+.profile-header p {
+margin: 0;
+color: #868e96;
+font-size: 0.95rem;
+}
+.user-role {
+display: inline-block;
+background: #e7f5ff;
+color: #1971c2;
+padding: 0.3rem 0.8rem;
+border-radius: 12px;
+font-size: 0.85rem;
+margin-top: 0.5rem;
+}
+.profile-section {
+margin-bottom: 2rem;
+}
+.section-title {
+margin: 0 0 1rem 0;
+font-size: 1.1rem;
+color: #212529;
+font-weight: 600;
+}
+.info-grid {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1rem;
+}
+.info-item {
+display: flex;
+justify-content: space-between;
+padding: 0.75rem 0;
+border-bottom: 1px solid #e9ecef;
+}
+.info-item:last-child {
+border-bottom: none;
+}
+.info-label {
+color: #868e96;
+font-size: 0.9rem;
+}
+.info-value {
+color: #212529;
+font-weight: 500;
+font-size: 0.9rem;
+}
+.profile-menu {
+display: flex;
+flex-direction: column;
+}
+.profile-menu-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 0;
+border: none;
+background: none;
+cursor: pointer;
+border-bottom: 1px solid #f1f3f5;
+text-align: left;
+}
+.profile-menu-item:last-child {
+border-bottom: none;
+}
+.menu-left {
+display: flex;
+align-items: center;
+gap: 1rem;
+color: #212529;
+font-size: 1rem;
+}
+.menu-icon {
+font-size: 1.3rem;
+}
+.menu-arrow {
+color: #adb5bd;
+font-size: 1.5rem;
+}
+.logout-button {
+width: 100%;
+padding: 1rem;
+border: 1px solid #f03e3e;
+background: white;
+color: #f03e3e;
+border-radius: 12px;
+cursor: pointer;
+font-size: 1rem;
+font-weight: 600;
+margin-bottom: 1rem;
+}
+.logout-button:hover {
+background: #fff5f5;
+}
+.app-version {
+text-align: center;
+color: #adb5bd;
+font-size: 0.85rem;
+margin: 1rem 0;
+}

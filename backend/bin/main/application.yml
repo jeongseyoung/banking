@@ -2,6 +2,9 @@ server:
   port: 8098
 
 spring:
+    output:
+      ansi:
+        enabled: always 
     mvc:
         view:
             prefix: /WEB-INF/
@@ -22,6 +25,7 @@ spring:
               scope:
                 - email
                 - profile
+              #redirect-uri: http://localhost:3000/callback
              
             # # Kakao OAuth2
             # kakao:

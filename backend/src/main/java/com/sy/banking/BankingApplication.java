@@ -14,7 +14,7 @@ public class BankingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankingApplication.class, args);
-		System.out.println("ㅇㅋ");
+		System.out.println("\u001B[0m" + "ㅇㅋ");
 	}
 
 }

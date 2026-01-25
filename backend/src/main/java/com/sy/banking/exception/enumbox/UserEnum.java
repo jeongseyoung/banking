@@ -10,7 +10,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum UserEnum {
     ADD_FAILED(HttpStatus.BAD_REQUEST, "등록 실패"),
-    DUPLICATED(HttpStatus.CONFLICT, "중복");
+    DUPLICATED(HttpStatus.CONFLICT, "중복"),
+    LOGIN_FAILED(HttpStatus.BAD_REQUEST, "로그인실패");
 
     private final HttpStatusCode httpStatus;
     private final String message;
