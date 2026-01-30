@@ -96,9 +96,9 @@ public class AccountServiceImpl implements AccountService{
         String status = accountItem.get().getStatus();
 
         long totalCount = transferMapper.countByAccountId(accountId);
-
+        log.info("{} {} {}", accountId, accountNumber, status);
         List<TransactionListItem> list = transferMapper.findListByAccountId(accountId, asPageItem);
-       
+        System.out.println("zz: " + userItem.getUserId() + " " + list.get(0).getAccountId());
         return PageResponse.page(
             asPageItem.getPage(),
             asPageItem.getSize(),

@@ -36,24 +36,52 @@ width: 1px;
 background: #dee2e6;
 }
 .history-filters {
+/* display: flex;
+gap: 0.5rem;
+margin-bottom: 1.5rem; */
 display: flex;
+flex-wrap: wrap;  /* 줄바꿈 허용 */
 gap: 0.5rem;
 margin-bottom: 1.5rem;
 }
 .filter-btn {
-padding: 0.6rem 1.2rem;
+/* padding: 0.6rem 1.2rem;
 border: 1px solid #dee2e6;
 background: white;
 border-radius: 20px;
 cursor: pointer;
 font-size: 0.9rem;
 color: #495057;
+font-weight: 500; */
+padding: 0.6rem 1rem;
+border: 1px solid #dee2e6;
+background: white;
+border-radius: 20px;
+cursor: pointer;
+font-size: 0.85rem;
+color: #495057;
 font-weight: 500;
+transition: all 0.2s;
+white-space: nowrap;  /* 텍스트 줄바꿈 방지 */
 }
+/* .filter-btn.active {
+background: #667eea;
+color: white;
+border-color: #667eea;
+} */
 .filter-btn.active {
 background: #667eea;
 color: white;
 border-color: #667eea;
+}
+
+.filter-btn:hover {
+border-color: #667eea;
+background: #f8f9ff;
+}
+
+.filter-btn.active:hover {
+background: #5568d3;
 }
 .history-list {
 background: white;

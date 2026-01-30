@@ -10,7 +10,7 @@ export const api = async <TResponse = any> (
     data?: any,
     config?: ApiConfig
 ): Promise<TResponse> => {
-    
+    console.log("api", config?.params)
     switch (method) {
 
         case "GET": {

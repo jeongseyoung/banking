@@ -57,4 +57,9 @@ public class ASPageItem {
     public int getOffset() {
         return (page - 1) * size; 
     }
+
+    public ASPageItem (int page, int size) {
+        this.page = page;
+        this.size = size;
+    }
 }

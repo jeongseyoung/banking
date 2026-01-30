@@ -16,8 +16,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class TransactionListItem {
-    private String accountId;
-    private String counterPartyAccountId;
+    private long accountId;
+    private long counterPartyAccountId;
     private TransferType type;
     private long amount;
     private long balanceAfter;

@@ -36,7 +36,7 @@
     <where>
       account_id = #{accountId}
       <if test="page.transferType != null">
-        AND type = ${page.transferType}
+        AND type = #{page.transferType}
       </if>
     </where>
     ORDER BY created_at 

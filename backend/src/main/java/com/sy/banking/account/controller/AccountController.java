@@ -17,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -41,11 +39,14 @@ public class AccountController {
     }
 
     //계좌조회 - 내 계좌 상태 + 입출금list - page형태
-    @PostMapping("/myaccount")
+    @GetMapping("/myaccount")
     public ResponseEntity<PageResponse<TransactionListItem>> getMyAccountStatement(
-        @RequestBody ASPageItem asPageItem,
+        @RequestParam(name = "page") int p,
+        @RequestParam(name = "size") int s,
         @AuthenticationPrincipal UserItem userItem) {
-        
+
+        ASPageItem asPageItem = new ASPageItem(p, s);
+        log.info("{} {}", p, s);
         return ResponseEntity.ok(accountService.getMyAccountStatement(asPageItem, userItem));
         
     }
@@ -53,11 +54,7 @@ public class AccountController {
     //accountTab
     @GetMapping("/accounttab")
     public AccountItemResponse accountTab(@AuthenticationPrincipal UserItem userItem) {
-        //System.out.println("userItem, accountTab" + " " + userItem.getUserId());
         return accountService.getMyAccountInfo(userItem.getUserId());
-        //AccountItemResponse temp = accountService.getMyAccountInfo(userItem.getUserId());
-        //log.info("zz {}", temp.getList().get(0).getAccountNumber());
-        //return null;
     }
     
 }
