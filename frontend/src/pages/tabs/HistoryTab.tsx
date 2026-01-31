@@ -5,21 +5,10 @@ import TransactionPageResponse from '../../types/TransactionPageResponse';
 import TransactionDTO from '../../types/dto/TransactionDTO';
 import TransferType from '../../types/type/TransferType';
 
-interface Transaction {
-    id: number;
-    type: 'in' | 'out';
-    title: string;
-    amount: number;
-    date: string;
-    time: string;
-    category: string;
-    balance: number;
-}
-
 function HistoryTab() {
     const [transactionData, setTransactionData] = useState<TransactionPageResponse | null>(null);
     const [allTransactions, setAllTransactions] = useState<TransactionDTO[]>([]);
-    const [transferType, setTransferType] = useState<string | null>("");
+    //const [transferType, setTransferType] = useState<string | null>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingMore, setLoadingMore] = useState<boolean>(false);  // 더보기 로딩
@@ -30,15 +19,8 @@ function HistoryTab() {
         fetchTransactions(1);
     }, []);
 
-    /* 
-    @Schema(description = "DEPOSIT, WITHDRAWAL, TRANS_IN, TRANS_OUT, INTEREST /// IF NULL = ALL")
-    private TransferType transferType;
-
-    @Schema(description = "DESC, ASC // IF NULL DESC")
-    private OrderByType orderByType;
-    */
     useEffect(() => {
-        setTransferType(transferType);
+        setAllTransactions([]);
         setCurrentPage(1);
         fetchTransactions(1, true);
     }, [filter])
@@ -68,9 +50,6 @@ function HistoryTab() {
             setLoadingMore(false);
         }
 
-        
-
-        
     }
     
     const handleLoadMore = () => {
@@ -97,10 +76,10 @@ function HistoryTab() {
             const yesterday = new Date(today);
             yesterday.setDate(yesterday.getDate() - 1);
 
-            if(date.toDateString === today.toDateString) return "오늘";
-            if(date.toDateString === yesterday.toDateString) return "어제";
+            if(date.toDateString() === today.toDateString()) return "오늘";
+            if(date.toDateString() === yesterday.toDateString()) return "어제";
 
-            const result = `${date.getMonth}월 ${date.getDay}일`;
+            const result = `${date.getMonth() + 1}월 ${date.getDay()}일`;
             
             return result;
         }
@@ -113,28 +92,27 @@ function HistoryTab() {
             return `${hours}시 ${minutes}분`
         }
 
-        // useEffect(() => {
-        //     getTransactionType;
-        // })
-        // const [type, setType] = useState<String | null>(null);
-        const getTransactionType = (type: string): "in" | "out"  => {
+        const getTransactionType = (type: string): "in" | "out" | "interest"=> {
             if(type === "DEPOSIT" || type === "TRANS_IN") return "in";
+            else if(type === "INTEREST") return "interest";
             
             return "out";
         };
 
         const getTransactionTypeKorean = (type: string) => {
+
             switch(type) {
                 case "DEPOSIT": return "입금";
                 case "WITHDRAWAL": return "출금";
-                case "TRANS_IN": return "받은송금";
-                case "TRANS_OUT": return "보낸송금";
+                case "TRANSFER_IN": return "받은송금";
+                case "TRANSFER_OUT": return "보낸송금";
                 case "INTEREST": return "이자";
                 default: return type;
             }
         };
 
         if(loading) {
+
             return (
                 <div className='history-tab'>
                     <p>loading...</p>
@@ -143,6 +121,7 @@ function HistoryTab() {
         }
 
         if(error) {
+
             return (
                 <div className='history-tab'>
                     <p>오류</p>
@@ -187,13 +166,13 @@ function HistoryTab() {
                     출금
                 </button>
                 <button 
-                    className={`filter-btn ${filter === 'TRANS_IN' ? 'active' : ''}`}
-                    onClick={() => setFilter('TRANS_IN')}>
+                    className={`filter-btn ${filter === 'TRANSFER_IN' ? 'active' : ''}`}
+                    onClick={() => setFilter('TRANSFER_IN')}>
                     받은송금
                 </button>
                 <button 
-                    className={`filter-btn ${filter === 'TRANS_OUT' ? 'active' : ''}`}
-                    onClick={() => setFilter('TRANS_OUT')}>
+                    className={`filter-btn ${filter === 'TRANSFER_OUT' ? 'active' : ''}`}
+                    onClick={() => setFilter('TRANSFER_OUT')}>
                     보낸송금
                 </button>
                 <button 
@@ -220,7 +199,7 @@ function HistoryTab() {
                                         <div key={`${transaction.accountId}-${index}`} className='history-item'>
                                             <div className='history-left'>
                                                 <div className={`history-icon ${transactionType}`}>
-                                                    {transactionType === "in" ? "입" : "출"}
+                                                    {transactionType === "in" || "interest" ? "입" : "출"}
                                                 </div>
                                                 <div>
                                                     <p className='history-title'>
@@ -233,10 +212,10 @@ function HistoryTab() {
                                             </div>
                                             <div className='history-right'>
                                                 <p className={`history-amount ${transactionType}`}>
-                                                    {transactionType === "in" ? "+" : "-"}
+                                                    {transactionType === "in" || "interest" ? "+" : "-"}
                                                     {transaction.amount.toLocaleString()}원 
                                                 </p>
-                                                <p className='histroy-balanc'>
+                                                <p className='histroy-balance'>
                                                     잔액 {transaction.balanceAfter.toLocaleString()}원
                                                 </p>
                                             </div>

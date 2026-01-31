@@ -88,7 +88,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public PageResponse<TransactionListItem> getMyAccountStatement(ASPageItem asPageItem, UserItem userItem) {
 
-        log.info("getMyAccountStatement impl {}, {}, {}", asPageItem.getPage(), asPageItem.getSize(), userItem.getUserId());
+        log.info("getMyAccountStatement/impl {}, {}, {}", asPageItem.getPage(), asPageItem.getSize(), userItem.getUserId());
 
         Optional<AccountItem> accountItem = accountMapper.findAccountIdByUserId(userItem.getUserId());
         long accountId = accountItem.get().getAccountId();
@@ -98,7 +98,6 @@ public class AccountServiceImpl implements AccountService{
         long totalCount = transferMapper.countByAccountId(accountId);
         log.info("{} {} {}", accountId, accountNumber, status);
         List<TransactionListItem> list = transferMapper.findListByAccountId(accountId, asPageItem);
-        System.out.println("zz: " + userItem.getUserId() + " " + list.get(0).getAccountId());
         return PageResponse.page(
             asPageItem.getPage(),
             asPageItem.getSize(),
@@ -111,9 +110,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountItemResponse getMyAccountInfo(long userId) {
-        //Optional<AccountItem> accountItem =  accountMapper.findAccountIdByUserId(userId);
         List<AccountItem> accounts = accountMapper.findMyAccountsByUserId(userId);
-        //AccountItemResponse accountItemResponse = accountItem.map((item) -> new AccountItemResponse(item.getAccountId(), item.getUserId(),item.getAccountNumber(), item.getBalance(), item.getStatus(), item.getCreatedAt())).orElseThrow();
         return AccountItemResponse.of(accounts);
     }
 }

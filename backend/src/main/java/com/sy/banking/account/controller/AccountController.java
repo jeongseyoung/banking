@@ -9,6 +9,7 @@ import com.sy.banking.domain.item.TransactionListItem;
 import com.sy.banking.domain.item.UserItem;
 import com.sy.banking.domain.item.res.AccountItemResponse;
 import com.sy.banking.domain.paging.PageResponse;
+import com.sy.banking.enumbox.TransferType;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,10 +44,12 @@ public class AccountController {
     public ResponseEntity<PageResponse<TransactionListItem>> getMyAccountStatement(
         @RequestParam(name = "page") int p,
         @RequestParam(name = "size") int s,
+        @RequestParam(name = "transferType", defaultValue = "") TransferType t,
         @AuthenticationPrincipal UserItem userItem) {
 
-        ASPageItem asPageItem = new ASPageItem(p, s);
-        log.info("{} {}", p, s);
+        ASPageItem asPageItem = new ASPageItem(p, s, t);
+        log.info("{} {} {}", p, s, t);
+        //PageResponse<TransactionListItem> temp = accountService.getMyAccountStatement(asPageItem, userItem);
         return ResponseEntity.ok(accountService.getMyAccountStatement(asPageItem, userItem));
         
     }
