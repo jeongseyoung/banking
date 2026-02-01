@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react';
 import AccountItemResponse from '../../types/AccountListResponse';
 import { apiGet } from '../../api/ApiExcute';
 import { AccountDTO } from '../../types/dto/AccountDTO';
+import TransferModal from './components/TransferModal';
 
 function AccountsTab() {
 
     const [accountData, setAccountData] = useState<AccountItemResponse | null>(null); 
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
+    const [selectedAccount, setSelectedAccount] = useState<AccountDTO | null>(null);
 
     useEffect(() => {
         fetchAccounts();
@@ -29,6 +33,17 @@ function AccountsTab() {
         }
     }
 
+    //이체버튼 클릭
+    const handleTransferClick = (account: AccountDTO) => {
+        setSelectedAccount(account);
+        setIsTransferModalOpen(true);
+    }
+
+    //이체성공
+    const handleTransferSuccess = () => {
+        fetchAccounts();//계좌정보 새로고침
+    }
+
     if (loading) {
         return (
             <div className='accounts-tab'>
@@ -47,38 +62,57 @@ function AccountsTab() {
         );
     }
 
+    if(!accountData || !accountData.list || accountData.list.length === 0) {
+        return (
+            <div className='accounts-tab'>
+                <h2 className='tab-title'>계좌가 없습니다.</h2>
+            </div>
+        );
+    }
+
     //const totalBalance = accountData?.totalBalance;
 
     return (
-        <div className='accounts-tab'>
-            <h2 className='tab-title'>총 {accountData?.totalCount}개의 계좌가 있습니다.</h2>
+        <>
+            <div className='accounts-tab'>
+                <h2 className='tab-title'>총 {accountData?.totalCount}개의 계좌가 있습니다.</h2>
 
-            <div className='account-grid'>
-                {accountData?.list.map((accountDto: AccountDTO, index: number) => (
-                    <div key={index} className='account-item'>
-                        <div className='account-header'>
-                            <span className='account-type'>입출금계좌</span>
-                            {accountDto.status === "ACTIVE" && (
-                                <span className='account-badge'>ACTIVE</span>
-                            )}
+                <div className='account-grid'>
+                    {accountData?.list.map((account: AccountDTO, index: number) => (
+                        <div key={index} className='account-item'>
+                            <div className='account-header'>
+                                <span className='account-type'>입출금계좌</span>
+                                {account.status === "ACTIVE" && (
+                                    <span className='account-badge'>ACTIVE</span>
+                                )}
+                            </div>
+                            <p className='account-num'>{account.accountNumber}</p>
+                            <h3 className='account-money'>{account.balance}원</h3>
+                            {/* 이체버튼 */}
+                            <div className="account-actions-modern">
+                                <button className="modern-btn transfer" onClick={() => handleTransferClick(account)}>
+                                    <span className="btn-icon">→</span>
+                                    <span>이체</span>
+                                </button>
+                                <button className="modern-btn detail">
+                                    <span className="btn-icon">···</span>
+                                    <span>상세</span>
+                                </button>
+                            </div>
                         </div>
-                        <p className='account-num'>{accountDto.accountNumber}</p>
-                        <h3 className='account-money'>{accountDto.balance}원</h3>
-                        <div className="account-actions-floating">
-                            <button className="floating-btn transfer">
-                                <span className="floating-icon">→</span>
-                                <span className="floating-text">이체</span>
-                            </button>
-                            <button className="floating-btn detail">
-                                <span className="floating-icon">···</span>
-                                <span className="floating-text">상세</span>
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </div>
-        
+            {/* 이체 모달 */}
+            {selectedAccount && (
+                <TransferModal 
+                    isOpen={isTransferModalOpen}
+                    onClose={() => setIsTransferModalOpen(false)}
+                    fromAccount={selectedAccount}
+                    onSuccess={handleTransferSuccess}
+                />
+            )}
+        </>
     );
 }
 
