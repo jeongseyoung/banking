@@ -10,9 +10,14 @@ import com.sy.banking.domain.item.UserItem;
 import com.sy.banking.domain.item.res.AccountItemResponse;
 import com.sy.banking.domain.paging.PageResponse;
 import com.sy.banking.enumbox.TransferType;
+import com.sy.banking.utils.ExcelConverter;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -60,4 +65,13 @@ public class AccountController {
         return accountService.getMyAccountInfo(userItem.getUserId());
     }
     
+    //엑셀변환
+    @GetMapping("/excel")
+    public void downloadTransactionsExcel(HttpServletResponse response, 
+        @AuthenticationPrincipal UserItem userItem) throws IOException{
+        
+        List<TransactionListItem> list = accountService.findAccountByUserId(userItem.getUserId());
+        log.info("excel list {}", list);
+        ExcelConverter.exportTransactions(response, list);
+    }
 }

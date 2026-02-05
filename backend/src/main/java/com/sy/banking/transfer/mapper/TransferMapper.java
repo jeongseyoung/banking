@@ -16,6 +16,9 @@ public interface TransferMapper {
 
     List<TransactionListItem> findListByAccountId(@Param("accountId") long accountId, @Param("page") ASPageItem asPageItem);
 
+    //트랜잭션 리스트 - 엑셀다운용 - 페이징 X
+    List<TransactionListItem> findListByAccountId_NoPaging(long userId);
+
     //total count
     long countByAccountId(long accountId);
 }

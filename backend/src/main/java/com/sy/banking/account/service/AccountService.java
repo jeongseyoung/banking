@@ -1,6 +1,8 @@
 package com.sy.banking.account.service;
 
 
+import java.util.List;
+
 import com.sy.banking.domain.item.ASPageItem;
 import com.sy.banking.domain.item.AccountItem;
 import com.sy.banking.domain.item.TransactionListItem;
@@ -16,4 +18,5 @@ public interface AccountService {
 
     AccountItemResponse getMyAccountInfo(long userId);
 
+    List<TransactionListItem> findAccountByUserId(long userId);
 }

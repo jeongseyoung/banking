@@ -4,6 +4,8 @@ import TransactionPageParam from '../../types/params/TransactionPageParam';
 import TransactionPageResponse from '../../types/TransactionPageResponse';
 import TransactionDTO from '../../types/dto/TransactionDTO';
 import TransferType from '../../types/type/TransferType';
+import axiosInstance from '../../store/AxiosInstance';
+import './css/HistoryTab.css'
 
 function HistoryTab() {
     const [transactionData, setTransactionData] = useState<TransactionPageResponse | null>(null);
@@ -133,10 +135,32 @@ function HistoryTab() {
     const transactionGroups = groupByDate(allTransactions);
     const more = transactionData && currentPage < transactionData.totalPage;
     
+    //엑셀
+    const handleDownloadExcel = async () => {
+        const url = "/api/account/excel";
+        try {
+            const response = await axiosInstance.get(url, { responseType: 'blob'});
+            const link = document.createElement("a");
+            
+            link.href = window.URL.createObjectURL(new Blob([response.data]));
+            link.setAttribute("download", `TransactionHistory_${new Date().toISOString().split("T")[0]}.xlsx`);
+            document.body.appendChild(link);            
+            link.click();
+            link.remove();
+
+            console.log("엑셀 다운로드 완료");
+        } catch (error) {
+            console.error('엑셀 다운로드 실패:', error);
+            alert('엑셀 다운로드에 실패했습니다.');
+        }
+    };
 
     return (
         <div className="history-tab">
-            <h2 className="tab-title">거래내역</h2>
+            <div className='history-header'>
+                <h2 className="tab-title">거래내역</h2>
+                <button className='excel-download-btn' onClick={handleDownloadExcel}>엑셀 다운로드</button>
+            </div>
             
             {/* 이번 달 지출 요약 */}
             {transactionData && (

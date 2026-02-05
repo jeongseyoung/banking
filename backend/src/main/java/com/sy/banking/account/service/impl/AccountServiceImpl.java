@@ -110,7 +110,18 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountItemResponse getMyAccountInfo(long userId) {
+
         List<AccountItem> accounts = accountMapper.findMyAccountsByUserId(userId);
         return AccountItemResponse.of(accounts);
+        
+    }
+
+
+    @Override
+    public List<TransactionListItem> findAccountByUserId(long userId) {
+
+        Optional<AccountItem> optionalAccount = accountMapper.findAccountIdByUserId(userId);
+        return transferMapper.findListByAccountId_NoPaging(optionalAccount.get().getAccountId());
+
     }
 }

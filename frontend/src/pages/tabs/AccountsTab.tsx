@@ -3,7 +3,7 @@ import AccountItemResponse from '../../types/AccountListResponse';
 import { apiGet } from '../../api/ApiExcute';
 import { AccountDTO } from '../../types/dto/AccountDTO';
 import TransferModal from './components/TransferModal';
-
+import './css/AccountsTab.css' //E:\vscode\banking_project\frontend\src\pages\tabs\css\AccountsTab.css
 function AccountsTab() {
 
     const [accountData, setAccountData] = useState<AccountItemResponse | null>(null); 
