@@ -50,6 +50,7 @@
     </choose>
     LIMIT #{page.size}
     OFFSET #{page.offset}
+    FOR UPDATE
   </select> 
 
   <!-- //트랜잭션 리스트 - 엑셀다운용 - 페이징 X

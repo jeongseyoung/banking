@@ -23,13 +23,6 @@ public class TransferController {
 
     private final TransferService transferService;
 
-    // TransferReqItem 
-    // private String accountNumber; //내계좌
-    // private String counterpartyAccountNumber; //상대방계좌
-    // private long amount;
-    // private String memo;
-    // private TransferType transferType;
-
     //나에게 입금 
     @PostMapping("/deposit")
     public ResponseEntity<TransactionRes> deposit(@RequestBody TransferReqItem transferReqItem) {
@@ -48,7 +41,4 @@ public class TransferController {
     public ResponseEntity<TransactionRes> transfer(@RequestBody TransferReqItem transferReqItem) {
         return ResponseEntity.ok(transferService.transfer(transferReqItem));
     }
-    
-       
-    
 }
