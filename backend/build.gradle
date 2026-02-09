@@ -48,8 +48,16 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-	    // ✅ 이거 하나만 추가 (SXSSF 포함!)
+	//SXSSF
     implementation 'org.apache.poi:poi-ooxml:5.3.0'
+
+	//cache// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.25.0'
+
+	// Jackson (LocalDateTime 등 직렬화용)
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	
 
 }
 
