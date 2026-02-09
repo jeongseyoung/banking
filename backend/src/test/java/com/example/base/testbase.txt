@@ -1,0 +1,69 @@
+package com.example.base;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sy.banking.BankingApplication;
+import com.sy.banking.account.mapper.AccountMapper;
+import com.sy.banking.domain.item.AccountItem;
+import com.sy.banking.transfer.service.TransferService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@SpringBootTest(classes = BankingApplication.class)
+@Slf4j
+public class MixedDepositAndWithdrawalTest {
+    
+    @Autowired
+    private TransferService transferService;
+    @Autowired
+    private AccountMapper accountMapper;
+
+    private static final String TEST_ACCOUNT_NUMBER = "02330-35-02978900";
+    private static final long INITIAL_BALANCE = 0L;
+
+    @Test
+    @DisplayName("")
+    void MixedDepositAndWithdrawal() throws InterruptedException {
+        AccountItem account = accountMapper.existingAccount(TEST_ACCOUNT_NUMBER).orElseThrow();
+        AccountItem setupItem = AccountItem.builder()
+        .accountId(INITIAL_BALANCE)
+        .accountNumber(TEST_ACCOUNT_NUMBER)
+        .balance(50000L).createdAt(account.getCreatedAt()).build();
+
+        accountMapper.updateAccountInfo(setupItem);
+
+        int numOfThreads = 100;
+        long amount = 100L;
+        long expectedBalance = INITIAL_BALANCE + (numOfThreads * amount);
+
+        //log.info("===  ===");
+
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(numOfThreads);
+        AtomicInteger  = new AtomicInteger(0);
+        AtomicInteger  = new AtomicInteger(0);
+
+        for(int i = 0; i < numOfThreads; i++) {
+            final int threadNum = i;
+            executorService.submit(() -> {
+                try {
+                    TransferReqItem req = new TransferReqItem();
+                    req.setAccountNumber(TEST_ACCOUNT_NUMBER);
+                    req.setAmount(amount);
+                }catch (Exception e) {
+                    // TODO: handle exception
+                }finally {
+                latch.countDown();
+                }
+            });
+        }
+    }
+}
