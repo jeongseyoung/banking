@@ -85,4 +85,16 @@ public class JwtTokenProvider {
         }
         return false;
     }
+
+    //토큰 유효시간계산
+    public long getRemainingExpirationTime(String token) {
+        Date expirationTime = Jwts.parser()
+                                    .verifyWith((SecretKey) key)
+                                    .build()
+                                    .parseSignedClaims(token)
+                                    .getPayload()
+                                    .getExpiration();
+        //만료 시각 - 현재 시각 = 남은 시간 (Remaining Time)
+        return expirationTime.getTime() - new Date().getTime();
+    }
 }

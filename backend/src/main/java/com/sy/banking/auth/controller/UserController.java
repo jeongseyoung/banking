@@ -8,6 +8,8 @@ import com.sy.banking.auth.service.UserService;
 import com.sy.banking.domain.dto.UserDto;
 import com.sy.banking.domain.item.UserItem;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,5 +42,13 @@ public class UserController {
     public String hi(@RequestParam String param){
         return "hi";
     }
+
+
+    @PostMapping("/api/auth/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response, HttpServletRequest request) {
+        userService.logout(response, request);
+        return ResponseEntity.ok("logout 완료");
+    }
+    
     
 }
