@@ -134,3 +134,29 @@ POST /transfer/transfer
 ✅ 출금: 5000원 → 잔액 5000원 ✓  
 ✅ 이체: A→B 3000원 (더블 엔트리) ✓
 ✅ 예외: 잔액 부족, 휴면계좌, 동일계좌 ✓
+
+
+
+ * 로그인 전체 흐름 정리
+```
+로그인
+  └─ OAuth2 성공
+       ├─ Access Token 발급 (15분)
+       ├─ Refresh Token 발급 (7일)
+       ├─ Redis에 Refresh Token 저장
+       └─ 쿠키에 토큰 저장
+
+Access Token 만료
+  └─ refreshTokenValidation() 호출
+       ├─ 기존 Access Token 블랙리스트 체크  ← 버그 수정 필요
+       ├─ Refresh Token 유효성 검증
+       ├─ Redis에서 Refresh Token 일치 확인
+       ├─ 새 토큰 발급
+       ├─ Redis Refresh Token Rotation
+       └─ 새 토큰 쿠키에 저장
+
+로그아웃
+  └─ logout() 호출
+       ├─ Refresh Token Redis에서 삭제
+       ├─ Access Token 블랙리스트 등록 (남은 유효시간 TTL)
+       └─ 쿠키 삭제

@@ -95,10 +95,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String accessToken = jwtTokenProvider.generateAccessToken(authentication);
         refreshToken = jwtTokenProvider.generateRefreshToken(authentication);
 
-        //blacklist에 등록된 토큰인지 확인
-        if(redisTemplate.hasKey("blacklist:" + accessToken)) {
-            throw new RuntimeException("이미 로그아웃된 토큰입니다.");
-        }
+        // //blacklist에 등록된 토큰인지 확인
+        // if(redisTemplate.hasKey("blacklist:" + accessToken)) {
+        //     throw new RuntimeException("이미 로그아웃된 토큰입니다.");
+        // }
 
         if(refreshToken == null) {
             throw new IllegalStateException("refreshtokengeneration error");

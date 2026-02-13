@@ -73,14 +73,24 @@ public class UserServiceImpl implements UserService{
             try {
                 String name = jwtTokenProvider.getUsernameFromToken(refreshToken);
                 redisTemplate.delete("refresh:" + name);    
+                log.info("refresh token 삭제");
             } catch (Exception e) {
-                // TODO: handle exception
+                log.warn("refresh token 삭제 실패 {}", e.getMessage());
             }
-
         }
 
-        long expirationTime = jwtTokenProvider.getRemainingExpirationTime(accessToken);
-        redisTemplate.opsForValue().set("blacklist:" + accessToken, "logout", expirationTime, TimeUnit.MILLISECONDS);
+        //access token 블랙리스트 추가
+        if(accessToken != null) {
+            try {
+                long expirationTime = jwtTokenProvider.getRemainingExpirationTime(refreshToken);
+                if(expirationTime > 0) {
+                    redisTemplate.opsForValue().set("blacklist:" + accessToken, "logout", expirationTime, TimeUnit.MILLISECONDS);
+                    log.info("access token 블랙리스트 등록 완료");
+                }
+            } catch (Exception e) {
+                log.warn("access token 블랙리스트 등록 실패 {}", e.getMessage());
+            }
+        }
 
         cookieProvider.deleteCookies(resopnse, "accessToken");
         cookieProvider.deleteCookies(resopnse, "refreshToken");
