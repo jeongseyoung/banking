@@ -12,7 +12,7 @@ import com.sy.banking.domain.item.AccountItem;
 public interface AccountMapper {
     
     //account정보 저장
-    void insertAccountInfo(@Param("account") AccountItem accountItem);
+    int insertAccountInfo(@Param("account") AccountItem accountItem);
 
     //계좌 업데이트
     void updateAccountInfo(@Param("account") AccountItem accountItem);
@@ -25,6 +25,7 @@ public interface AccountMapper {
 
     //userId로 accountId찾기 -- isPrimary 만들어야될듯? 주계좌설정해야됨.
     Optional<AccountItem> findAccountIdByUserId(long userId);
+    //AccountItem findAccountIdByUserId(long userId);
 
     //userId로 accounts(list)찾기
     List<AccountItem> findMyAccountsByUserId(long userId);

@@ -2,8 +2,8 @@ package com.sy.banking.account.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
+
 
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,10 @@ import com.sy.banking.domain.item.TransactionListItem;
 import com.sy.banking.domain.item.UserItem;
 import com.sy.banking.domain.item.res.AccountItemResponse;
 import com.sy.banking.domain.paging.PageResponse;
+import com.sy.banking.exception.AccountException;
+import com.sy.banking.exception.UserException;
+import com.sy.banking.exception.enumbox.AccountEnum;
+import com.sy.banking.exception.enumbox.UserEnum;
 import com.sy.banking.transfer.mapper.TransferMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -30,19 +34,25 @@ public class AccountServiceImpl implements AccountService{
     private final AccountMapper accountMapper;
     private final TransferMapper transferMapper;
     private static final Random random = new Random();
+    private static final int MAX_ACCOUNT_NUMBER_ATTEMPTS = 1000;
 
     @Override
     public AccountItem createAccount(UserItem userItem) {
 
-        if (userMapper.findByEmail(userItem.getEmail()).isEmpty()) {
-            throw new IllegalArgumentException("존재하지 않는 사용자, 계좌생성 불가능");
-        };
+        UserItem user = userMapper.findByEmail(userItem.getEmail()).orElseThrow(() -> new UserException(UserEnum.USER_NOT_FOUND));
 
         String accountNumber = generateAccountNumber();
-        log.info("userId {} {} {} {}", userItem.getUserId(), userItem.getEmail(), userItem.getName(), userItem.getUsername());
-        AccountItem accountItem = new AccountItem(userItem.getUserId(), accountNumber, 0, "ACTIVE", LocalDateTime.now());
-        accountMapper.insertAccountInfo(accountItem);
+        log.info("userId {} {} {} {}", user.getUserId(), user.getEmail(), user.getName(), user.getUsername());
+        AccountItem accountItem = new AccountItem(user.getUserId(), accountNumber, 0, "ACTIVE", LocalDateTime.now());
 
+        int result = accountMapper.insertAccountInfo(accountItem);
+
+        if(result == 0) {
+            log.error("계좌생성실패: userId = {}", accountItem.getUserId());
+            throw new AccountException(AccountEnum.ACCOUNT_CREATE_FAILED);
+        }
+
+        log.info("계좌 생성 완료: userId={}, accountNumber={}", user.getUserId(), accountItem.getAccountNumber());
         return accountItem;
     }
 
@@ -70,14 +80,20 @@ public class AccountServiceImpl implements AccountService{
 
     //계좌 중복, 존재여부 확인
     private String generateAccountNumber() {
+        int attempts = 0;
 
-        String accountNumber;
+        //최대시도횟수 1000번 - 실패 시 exception 던짐.
+        while(attempts < MAX_ACCOUNT_NUMBER_ATTEMPTS) {
+            String accountNumber = createAccountNum();
+            if(accountMapper.existingAccount(accountNumber).isEmpty()) {
+                return accountNumber;
+            }
+            attempts++;
+        }
+
+        log.error("계좌번호 생성 실패: {}번 시도 후 모두 중복", MAX_ACCOUNT_NUMBER_ATTEMPTS);
+        throw new AccountException(AccountEnum.ACCOUNT_CREATE_FAILED);     
         
-        do {
-            accountNumber = createAccountNum();
-        } while (accountMapper.existingAccount(accountNumber).isPresent());
-
-        return accountNumber;
     }
 
     /* private int page;
@@ -90,10 +106,10 @@ public class AccountServiceImpl implements AccountService{
 
         log.info("getMyAccountStatement/impl {}, {}, {}", asPageItem.getPage(), asPageItem.getSize(), userItem.getUserId());
 
-        Optional<AccountItem> accountItem = accountMapper.findAccountIdByUserId(userItem.getUserId());
-        long accountId = accountItem.get().getAccountId();
-        String accountNumber = accountItem.get().getAccountNumber();
-        String status = accountItem.get().getStatus();
+        AccountItem accountItem = accountMapper.findAccountIdByUserId(userItem.getUserId()).orElseThrow(() -> new AccountException(AccountEnum.ACCOUNT_NOT_FOUND));
+        long accountId = accountItem.getAccountId();
+        String accountNumber = accountItem.getAccountNumber();
+        String status = accountItem.getStatus();
 
         long totalCount = transferMapper.countByAccountId(accountId);
         log.info("{} {} {}", accountId, accountNumber, status);
@@ -112,16 +128,17 @@ public class AccountServiceImpl implements AccountService{
     public AccountItemResponse getMyAccountInfo(long userId) {
 
         List<AccountItem> accounts = accountMapper.findMyAccountsByUserId(userId);
-        return AccountItemResponse.of(accounts);
-        
+        if(accounts.isEmpty())
+            throw new AccountException(AccountEnum.ACCOUNT_NOT_FOUND);
+        return AccountItemResponse.of(accounts);        
     }
 
 
     @Override
     public List<TransactionListItem> findAccountByUserId(long userId) {
 
-        Optional<AccountItem> optionalAccount = accountMapper.findAccountIdByUserId(userId);
-        return transferMapper.findListByAccountId_NoPaging(optionalAccount.get().getAccountId());
+        AccountItem accountItem = accountMapper.findAccountIdByUserId(userId).orElseThrow(() -> new AccountException(AccountEnum.ACCOUNT_NOT_FOUND));
+        return transferMapper.findListByAccountId_NoPaging(accountItem.getAccountId());
 
     }
 }

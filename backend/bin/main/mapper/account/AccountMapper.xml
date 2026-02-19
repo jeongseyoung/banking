@@ -13,7 +13,8 @@
     private long balance;
     private String status; //ACTIVE, BLOCKED
     private LocalDateTime created_at;-->
-    <insert id="insertAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem" useGeneratedKeys="true">
+    <!-- <insert id="insertAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem" useGeneratedKeys="true"> -->
+    <insert id="insertAccountInfo" parameterType="com.sy.banking.domain.item.AccountItem" useGeneratedKeys="true" keyProperty="account.accountId">
         INSERT INTO accounts (user_id, account_number, balance, status, created_at)
         VALUES (#{account.userId}, #{account.accountNumber}, #{account.balance}, #{account.status}, #{account.createdAt})
     </insert>
