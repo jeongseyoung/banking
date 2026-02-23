@@ -1,5 +1,6 @@
 package com.sy.banking.account.service.impl;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService{
     private final UserMapper userMapper;
     private final AccountMapper accountMapper;
     private final TransferMapper transferMapper;
-    private static final Random random = new Random();
+    private static final SecureRandom random = new SecureRandom();
     private static final int MAX_ACCOUNT_NUMBER_ATTEMPTS = 1000;
 
     @Override

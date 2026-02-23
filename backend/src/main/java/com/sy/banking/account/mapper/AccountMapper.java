@@ -15,7 +15,7 @@ public interface AccountMapper {
     int insertAccountInfo(@Param("account") AccountItem accountItem);
 
     //계좌 업데이트
-    void updateAccountInfo(@Param("account") AccountItem accountItem);
+    int updateAccountInfo(@Param("account") AccountItem accountItem);
 
     //계좌중복, 존재 여부, select
     Optional<AccountItem> existingAccount(@Param("accountNumber") String accountNumber);

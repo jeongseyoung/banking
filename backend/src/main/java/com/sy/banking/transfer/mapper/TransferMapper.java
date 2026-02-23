@@ -12,7 +12,7 @@ import com.sy.banking.domain.item.req.TransactionReq;
 @Mapper
 public interface TransferMapper {
 
-    void saveTransaction(TransactionReq transactionReq);
+    int saveTransaction(TransactionReq transactionReq);
 
     List<TransactionListItem> findListByAccountId(@Param("accountId") long accountId, @Param("page") ASPageItem asPageItem);
 
