@@ -1,9 +1,7 @@
 package com.sy.banking.transfer.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
-import org.apache.ibatis.transaction.TransactionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,6 +94,7 @@ public class TransferServiceImpl implements TransferService{
         //res(transactionReq, accountNumber);
     }
 
+    //출금
     @Override
     public TransactionRes withdrawal(WithdrawalReqItem withdrawalReqItem) {
 
@@ -137,6 +136,7 @@ public class TransferServiceImpl implements TransferService{
         return executeTransfer(accountNumber, transactionReq);
     }
 
+    //이체
     @Override
     public TransactionRes transfer(TransferReqItem transactionReqItem) {
 
@@ -205,11 +205,13 @@ public class TransferServiceImpl implements TransferService{
         return executeTransfer(transactionReqItem.getAccountNumber(), p1_transactionReq, p2_transactionReq);
     }
 
+    //이자
     @Override
     public TransactionRes interest(String accountNumber, TransactionReq transactionReq) {
         return executeTransfer(accountNumber, transactionReq);
     }
     
+    //잔액 확인
     private void validateAmount(long amount) {
         if(amount <= 0) {
             log.warn("잘못된 금액: {}", amount);
@@ -221,6 +223,7 @@ public class TransferServiceImpl implements TransferService{
         }
     }
 
+    //active상태인지 확인
     private void validateAccountStatus(String status) {
         if(!"ACTIVE".equals(status)) {
             throw new AccountException(AccountEnum.INACTIVE_ACCOUNT);
