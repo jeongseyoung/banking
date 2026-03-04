@@ -52,7 +52,7 @@ function AccountsTab() {
         )
     }
 
-    if (error) {
+    if (error) {  
         return (
             <div className='accounts-tab'>
                 <p style={{ color: 'red' }}>{error}</p>

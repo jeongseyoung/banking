@@ -109,7 +109,7 @@ function TransferModal({ isOpen, onClose, fromAccount, onSuccess} : TransferModa
                             <h2>계좌이체</h2>
                             <button className="modal-close" onClick={handleClose}>X</button>
                         </div>
-
+            
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body">
                                 {/* 출금계좌 */}

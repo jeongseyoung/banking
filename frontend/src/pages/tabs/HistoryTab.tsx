@@ -26,7 +26,7 @@ function HistoryTab() {
         setCurrentPage(1);
         fetchTransactions(1, true);
     }, [filter])
-
+  
     const fetchTransactions = async (page: number, reset: boolean = false) => {
         const url = "/api/account/myaccount";
         const params: TransactionPageParam = {
