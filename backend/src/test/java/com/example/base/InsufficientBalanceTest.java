@@ -61,7 +61,7 @@ public class InsufficientBalanceTest extends HelperMethod{
 
         long finalBalance = getBalance(TEST_ACCOUNT_NUMBER);
 
-        log.info("성공: {}번, 실패: {}번, 최종잔액: {}원", successCount.get(), failCount.get(), finalBalance);
+        log.info("성공: {}번, 실패: {}번, 최종잔액: {}원", successCount.get(), failCount.get(), finalBalance);  
 
         assertEquals(10, successCount.get(), "10번만 성공해야됨");
         assertEquals(0L, finalBalance, "최종잔액 -> 0원이어야 함");

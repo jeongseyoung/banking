@@ -85,12 +85,12 @@ public class MixedDepositAndWithdrawalTest {
         latch.await();
         executorService.shutdown();
 
-        log.info("입금: {}건, 출금: {}건", deposit_Success.get(), withdrawal_Success.get());
+        log.info("입금: {}건, 출금: {}건", deposit_Success.get(), withdrawal_Success.get());  
 
         AccountItem finalAccount = accountMapper.existingAccount(TEST_ACCOUNT_NUMBER).orElseThrow();
         long expectedBalance  = 50000L + (deposit_Success.get() * amount) - (withdrawal_Success.get() * amount);
 
-        log.info("최종잔액: {}원, 예상: {}원", finalAccount.getBalance(), expectedBalance);
+        log.info("최종잔액: {}원, 예상: {}원", finalAccount.getBalance(), expectedBalance);  
         assertEquals(expectedBalance, finalAccount.getBalance());
     }
 }

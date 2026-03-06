@@ -26,7 +26,7 @@ public class RedisConnectionTest {
 
         assertEquals("Hello", value);
 
-        log.info("성공 {}", value);
+        log.info("성공 {}", value);  
 
         redisTemplate.delete("keytest");
     }
@@ -53,7 +53,7 @@ public class RedisConnectionTest {
         redisTemplate.opsForList().rightPush("list_1", "1");
         redisTemplate.opsForList().rightPush("list_1", "2");
         assertEquals(2, redisTemplate.opsForList().size("list_1"));
-        log.info("list size: {}개", redisTemplate.opsForList().size("list_1"));
+        log.info("list size: {}개", redisTemplate.opsForList().size("list_1"));  
 
 
         redisTemplate.delete("string_test");

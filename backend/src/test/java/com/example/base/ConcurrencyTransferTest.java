@@ -34,7 +34,7 @@ public class ConcurrencyTransferTest {
     private static final long INITIAL_BALANCE = 0L;
     @BeforeEach
     void setup() {
-        log.info("=== 테스트 초기화 시작 BeforeEach ===");
+        log.info("=== 테스트 초기화 시작 BeforeEach ===");   
 
         AccountItem existingAccount = accountMapper.existingAccount(TEST_ACCOUNT_NUMBER).orElse(null); 
 

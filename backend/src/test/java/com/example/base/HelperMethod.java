@@ -44,7 +44,7 @@ public class HelperMethod {
             .build();
         
         accountMapper.updateAccountInfo(setupItem);
-        log.info("계좌 {} 잔액을 {}원으로 설정", accountNumber, balance);
+        log.info("계좌 {} 잔액을 {}원으로 설정", accountNumber, balance);  
     }
     
     /**
