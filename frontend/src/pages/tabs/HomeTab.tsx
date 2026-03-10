@@ -20,7 +20,7 @@ function HomeTab({ user }: HomeTabProps) {
                     <p className="balance-label">총 자산</p>
                     <h2 className="balance-amount">1,234,567원</h2>
                 </div>
-            </div>
+            </div>  
             
             {/* 빠른 액션 버튼 */}
             <div className="action-buttons">

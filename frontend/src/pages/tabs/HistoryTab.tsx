@@ -33,7 +33,7 @@ function HistoryTab() {
             page: page,
             size: 5,
             transferType: filter || undefined
-        }
+        }  
         
         try {
             const data = await apiGet<TransactionPageResponse>(url, params);

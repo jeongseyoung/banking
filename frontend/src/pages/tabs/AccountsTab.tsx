@@ -59,7 +59,7 @@ function AccountsTab() {
                 <p style={{ color: 'blue' }}>다시 로그인 해주세요.</p>
                 <button onClick={fetchAccounts}>다시 시도</button>
             </div>
-        );
+        );  
     }
 
     if(!accountData || !accountData.list || accountData.list.length === 0) {

@@ -28,5 +28,5 @@ public interface AccountMapper {
     //AccountItem findAccountIdByUserId(long userId);
 
     //userId로 accounts(list)찾기
-    List<AccountItem> findMyAccountsByUserId(long userId);
+    List<AccountItem> findMyAccountsByUserId(long userId);  
 }
