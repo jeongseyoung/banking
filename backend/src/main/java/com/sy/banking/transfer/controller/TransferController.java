@@ -40,5 +40,5 @@ public class TransferController {
     @PostMapping("/t")
     public ResponseEntity<TransactionRes> transfer(@RequestBody TransferReqItem transferReqItem) {
         return ResponseEntity.ok(transferService.transfer(transferReqItem));
-    }
+    }  
 }

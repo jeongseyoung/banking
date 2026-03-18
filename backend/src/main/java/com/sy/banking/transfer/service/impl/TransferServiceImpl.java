@@ -42,7 +42,7 @@ public class TransferServiceImpl implements TransferService{
 
     private void update(AccountItem accountItem){
         int result = accountMapper.updateAccountInfo(accountItem);
-        if(result == 0) {
+        if(result == 0) {   
             throw new TransferException(TransferEnum.UPDATE_FAILED);
         }
     }

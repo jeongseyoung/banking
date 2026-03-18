@@ -20,5 +20,5 @@ public interface TransferMapper {
     List<TransactionListItem> findListByAccountId_NoPaging(long userId);
 
     //total count
-    long countByAccountId(long accountId);
+    long countByAccountId(long accountId);  
 }
