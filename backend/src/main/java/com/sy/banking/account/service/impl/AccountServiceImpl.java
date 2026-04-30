@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService{
         int result = accountMapper.insertAccountInfo(accountItem);
 
         if(result == 0) {
-            log.error("계좌생성실패: userId = {}", accountItem.getUserId());
+            log.error("failed create new account, 계좌생성실패: userId = {}", accountItem.getUserId());
             throw new AccountException(AccountEnum.ACCOUNT_CREATE_FAILED);
         }
 

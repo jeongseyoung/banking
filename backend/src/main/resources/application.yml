@@ -1,5 +1,10 @@
 server:
   port: 8098
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 spring:
     output:
@@ -11,7 +16,7 @@ spring:
             suffix: .jsp
     datasource:
         driver-class-name: org.mariadb.jdbc.Driver
-        url: jdbc:mariadb://localhost:3306/mybatisprac
+        url: jdbc:mariadb://localhost:3306/test
         username: root
         password: root
     security:
