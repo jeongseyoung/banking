@@ -15,6 +15,7 @@ interface TransactionDTO {
    balanceAfter: number,
    memo: string,
    createdAt: string
+    //createdAt: string;    
 }
 
 export default TransactionDTO;
