@@ -5,4 +5,5 @@ export interface AccountDTO {
    balance: number;
    status: string;
    createdAt: string;    
+   //createdAt: string;    
 }
