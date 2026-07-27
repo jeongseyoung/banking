@@ -3,7 +3,7 @@ import { AuthState } from "../types/AuthState";
 import axios from "axios";
 import { UserResponse } from "../types/UserResponse";
 import axiosInstance from "./AxiosInstance";
-
+//import axiosInstance from "./AxiosInstance";
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     isAuthenticated: false, 
