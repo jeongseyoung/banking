@@ -4,6 +4,7 @@ interface AccountItemResponse {
     totalCount: number;
     totalBalance: number;
     list: AccountDTO[];
+    // status: string,
 }
 
 export default AccountItemResponse;
