@@ -5,7 +5,7 @@ import HomeTab from './tabs/HomeTab';
 import AccountsTab from './tabs/AccountsTab';
 import HistoryTab from './tabs/HistoryTab';
 import ProfileTab from './tabs/ProfileTab';
-
+// //export default axiosInstance;   
 function BankingMain() {
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
