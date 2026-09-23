@@ -6,6 +6,7 @@ interface TransferResponse {
     balanceAfter: number,
     createdAt: string,
     status: string,
+     status: string,
 }
 
 export default TransferResponse;
